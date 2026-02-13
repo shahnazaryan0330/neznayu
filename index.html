@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			margin: 0;
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		button {
+			font-size: 18pt;
+		}
+
+		.video-wrap {
+			position: relative;
+			width: 500px;
+			aspect-ratio: 2 / 1.7;
+			border-radius: 15%;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#player {
+			position: absolute;
+			width: 200%;
+			height: 200%;
+		}
+
+		.btns-wrapper {
+			display: flex;
+			gap: 24px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="btns-wrapper">
+		<button id="btn">Play</button>
+		<button id="btnPause">Pause</button>
+	</div>
+
+	<div class="video-wrap">
+		<video id="player" width="320" height="240">
+			<source src="video.mp4" type="video/mp4" />
+		</video>
+	</div>
+
+	<label style="margin-left:12px;">
+		Громкость:
+		<input id="volume" type="range" min="0" max="100" value="100">
+		<span id="volValue">100</span>%
+	</label>
+
+	<script>
+		const btn = document.querySelector('#btn')
+		const btnPause = document.querySelector('#btnPause')
+
+		const player = document.querySelector('#player')
+
+		const volume = document.querySelector('#volume');
+		const volValue = document.querySelector('#volValue');
+
+
+		btn.addEventListener('click', () => {
+			player.play()
+		})
+
+		btnPause.addEventListener('click', () => {
+			player.pause()
+		})
+
+		player.volume = volume.value / 100;
+
+		volume.addEventListener('input', () => {
+			player.volume = volume.value / 100; // 0..1
+			volValue.textContent = volume.value;
+		});
+	</script>
+
+</body>
+
+</html>
